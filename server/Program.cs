@@ -3,6 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
+// 초기 실행 시 DB 생성
+SqliteHelper.Initialize();
+
 var tcpListener = new TcpListener(IPAddress.Any, 7777);
 tcpListener.Start();
 Console.WriteLine("✅ TCP 서버 시작 (포트 7777)");
@@ -11,6 +14,7 @@ var udpClient = new UdpClient(8888);
 Console.WriteLine("✅ UDP 서버 시작 (포트 8888)");
 
 var userUdpMap = new ConcurrentDictionary<int, IPEndPoint>();
+
 
 _ = Task.Run(async () =>
 {
